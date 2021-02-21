@@ -1,9 +1,8 @@
-module example.com/test
+module github.com/danieldhoang93/ebiten-shooter
 
-go 1.14
+go 1.15
 
 require (
 	github.com/hajimehoshi/ebiten v1.12.7
 	github.com/hajimehoshi/ebiten/v2 v2.0.4 // indirect
-	github.com/veandco/go-sdl2 v0.4.5
 )

@@ -2,6 +2,8 @@ package main
 
 import (
 	"log"
+	"math/rand"
+	"time"
 
 	"github.com/danieldhoang93/ebiten-shooter/objects"
 	"github.com/hajimehoshi/ebiten"
@@ -9,7 +11,7 @@ import (
 
 // Our game constants
 const (
-	windowWidth, windowHeight = 800, 600
+	windowWidth, windowHeight = 1200, 600
 	maxUint                   = ^uint(0)
 )
 
@@ -26,7 +28,7 @@ func (g *Game) Update(screen *ebiten.Image) error {
 	}
 
 	for _, o := range g.objects {
-		o.Tick(g.tick)
+		o.Tick(screen, g.tick)
 	}
 
 	return nil
@@ -50,6 +52,7 @@ func NewGame() *Game {
 	g := &Game{
 		objects: []objects.Object{
 			objects.NewBackground("bg_green.png"),
+			objects.NewLevel("water1.png", 20),
 			objects.NewDesk("bg_wood.png"),
 			objects.NewCurtains("curtain_straight.png", "curtain.png"),
 		},
@@ -59,4 +62,12 @@ func NewGame() *Game {
 
 func (g *Game) Run() error {
 	return ebiten.RunGame(g)
+}
+
+func main() {
+	rand.Seed(time.Now().Unix())
+	game := NewGame()
+	if err := game.Run(); err != nil {
+		log.Fatalf("Game error: %v", err)
+	}
 }
